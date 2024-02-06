@@ -3,20 +3,22 @@
 import Image from "next/image";
 import {
   useOrganization,
-  useOrganizationList
+  useOrganizationList,
 } from "@clerk/nextjs";
+
 import { cn } from "@/lib/utils";
+// import { Hint } from "@/components/hint";
 
 interface ItemProps {
   id: string;
   name: string;
   imageUrl: string;
-}
+};
 
 export const Item = ({
   id,
   name,
-  imageUrl
+  imageUrl,
 }: ItemProps) => {
   const { organization } = useOrganization();
   const { setActive } = useOrganizationList();
@@ -27,26 +29,20 @@ export const Item = ({
     if (!setActive) return;
 
     setActive({ organization: id });
-  }
-
-  console.log({
-    id,
-    name,
-    imageUrl,
-  })
+  };
 
   return (
-    <div className="apect-square relative">
+    <div className="aspect-square relative">
       <Image
-        src={imageUrl}
-        alt={name}
         fill
+        alt={name}
+        src={imageUrl}
         onClick={onClick}
         className={cn(
-          "rounded-md cursor-pointer hover:opacity-100 transition opacity-75",
+          "rounded-md cursor-pointer opacity-75 hover:opacity-100 transition",
           isActive && "opacity-100"
         )}
       />
-    </div>
-  )
-}
+    </div >
+  );
+};
